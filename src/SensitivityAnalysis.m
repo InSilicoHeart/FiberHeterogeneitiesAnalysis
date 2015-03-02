@@ -1,6 +1,7 @@
-function calculateERP(cores, pathToSave, mainElvira, project, cellType, param, values, dt, step_save,...
-                       Imax, Istep, sigma_L, Cm, nodes, nodeOut)
+function SensitivityAnalysis(cores, pathToSave, mainElvira, project, cellType, param, values, dt, step_save,...
+                       Imax, Istep, CL, nCLs, sigma_L, Cm, nodes, nodeOut)
 
+matlabpool(cores)
 
 [SUCCESS,MESSAGE] = mkdir(pathToSave);
 
@@ -25,10 +26,6 @@ Param_str = cell(length(param));
 
 [conduction, IThreshold, Istim] = calculateIThreshold(pathToSave, Imax, Istep, dt,project)
 
+simulateSteadyState(pathToSave,param,values,length(nodes),CL,nCLs,dt,project);
 
-%matlabpool(cores)
-%par
-for i=1:length(param)
-    Param_str{i} = ['P_' num2str(param(i))];
-end
-%matlabpool close
+matlabpool close;
