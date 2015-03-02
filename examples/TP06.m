@@ -4,8 +4,8 @@ pathToSave = '~/FiberSensitivityResults/TP06';
 mainElvira = '~/Software/Elvira/Elvira20150121/bin/mainelv_infiniband_gcc';
 project = 'Conductance Sensitivity - TP06 Model';
 
-param = [1 2];
-values =[0.70:0.15:1.30];
+param = [1:13];
+values =[0.70 0.85 1.15 1.30];
 cellType = 3;
 cores=4;
 dt = 0.02;
@@ -27,9 +27,12 @@ mid = nodes((end+1)/2);
 positions = [-nPrev:-nPrev+nOut-1]*dxOut + mid;
 nodeOut = round(positions/dx)+1;
 
+CL = 1000;
+nCLs = 30;
+
 SensitivityAnalysis(cores, pathToSave, mainElvira, project, cellType, param, values, dt,...
-             step_save, Imax, Istep, sigma_L, Cm, nodes,nodeOut)
+             step_save, Imax, Istep, CL, nCLs, sigma_L, Cm, nodes,nodeOut)
 
 plotIThresholdLimits(pathToSave)
 
-exit
+%exit
