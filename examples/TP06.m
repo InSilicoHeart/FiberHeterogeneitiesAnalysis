@@ -28,11 +28,11 @@ positions = [-nPrev:-nPrev+nOut-1]*dxOut + mid;
 nodeOut = round(positions/dx)+1;
 
 CL = 1000;
-nCLs = 30;
+nCLs = 300;
 
 SensitivityAnalysis(cores, pathToSave, mainElvira, project, cellType, param, values, dt,...
              step_save, Imax, Istep, CL, nCLs, sigma_L, Cm, nodes,nodeOut)
 
 plotIThresholdLimits(pathToSave)
 
-%exit
+exit
