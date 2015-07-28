@@ -11,7 +11,7 @@ n_cells = length(V(1,:));
 conduction = false;
 
 for i=1:n_cells
-    [APD90_c{i},APD_time{i}]= calculateAPD(V(:,i),dt);
+    [APD90_c{i},APD_time{i}]= calculateAPD(V(:,i),dt,0.9);
 end
 
 for i=1:n_cells
@@ -25,7 +25,7 @@ end
 
 conduction_v = true(1,numStim);
 
-APD90_v = cell2mat(APD90_c);
+APD90_v = cell2mat(APD90_c)
 for i=1:numStim
   if(~isempty(find(APD90_v(:,i)<150)))
     conduction_v(i)=false;
@@ -33,7 +33,8 @@ for i=1:numStim
 end
 
 APD90 = mean(APD90_v);
-CV = mean(250./diff(cell2mat(APD_time)));
+times = cell2mat(APD_time);
+CV = 1000./(times(:,end)-times(:,1));
 
 APD90(~conduction_v)=[];
 CV(~conduction_v)=[];

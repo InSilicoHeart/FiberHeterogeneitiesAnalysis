@@ -1,4 +1,4 @@
-function createMainFile(pathToSave,fileName,project,simulation,duration,dt,load,save,step_restart,paramNode)
+function createMainFile(pathToSave,fileName,project,simulation,duration,dt,load,save,step_restart,paramNode,allOut)
 
 f=fopen([pathToSave '/data/' fileName '.dat'],'w');
 
@@ -73,7 +73,11 @@ fprintf(f,[num2str(dt) ' ' num2str(dt) ' ' num2str(duration) ' ' num2str(dt) ' 0
 fprintf(f,'!------------------------------------------------------\n');
 fprintf(f,'*STIMULUS, FILE:"file_stimulus.dat"\n');
 fprintf(f,'!------------------------------------------------------\n');
+if(allOut)
+fprintf(f,'*NODEOUTPUT, FILE:"file_node_output_all.dat"\n');
+else
 fprintf(f,'*NODEOUTPUT, FILE:"file_node_output.dat"\n');
+end
 fprintf(f,'*G_OUTPUT\n');
 fprintf(f,'1\n');
 fprintf(f,['2 ' num2str(ceil(duration/dt)*2) '\n']);

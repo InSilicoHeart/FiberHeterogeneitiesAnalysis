@@ -1,5 +1,5 @@
 function SensitivityAnalysis(cores, pathToSave, mainElvira, project, cellType, param, values, dt, step_save,...
-                       Imax, Istep, CL, nCLs, sigma_L, Cm, nodes, nodeOut)
+                       Imax, Istep, CL, nCLs, Cai_ind, sigma_L, Cm, nodes, nodeOut)
 
 matlabpool(cores)
 
@@ -19,13 +19,14 @@ if(isempty(dir([pathToSave '/base'])))
     createFilePropElement([pathToSave '/base']);
     createFileNodes([pathToSave '/base'],nodes);
     createFileElements([pathToSave '/base'],length(nodes));
-    createFileNodeOutput([pathToSave '/base'], step_save, nodeOut);
+    createFileNodeOutput([pathToSave '/base'], step_save, nodeOut,true);
+    createFileNodeOutput([pathToSave '/base'], step_save, nodeOut,false);
 end
 
 Param_str = cell(length(param));
 
 [conduction, IThreshold, Istim] = calculateIThreshold(pathToSave, Imax, Istep, dt,project)
 
-simulateSteadyState(pathToSave,param,values,length(nodes),CL,nCLs,dt,project);
+simulateSteadyState(pathToSave,param,values,length(nodes),CL,nCLs,Cai_ind,dt,project);
 
 matlabpool close;
