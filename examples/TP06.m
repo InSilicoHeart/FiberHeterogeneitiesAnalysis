@@ -1,7 +1,7 @@
 addpath([pwd() '/../src'])
 
 pathToSave = '~/FiberSensitivityResults/TP06';
-mainElvira = '~/Software/Elvira/Elvira20150121/bin/mainelv_infiniband_gcc';
+mainElvira = '~/Software/Elvira/ElviraFiberSensitivity20150728/bin/mainelv_infiniband_gcc';
 project = 'Conductance Sensitivity - TP06 Model';
 
 param = [1:13];
