@@ -130,8 +130,8 @@ for i=1:length(param)
     for k=1:5
         [APD90{k},APD_time{k}]= calculateAPD(V(:,k),dt_results,0.9);
         Trian{k}= APD90{k}-calculateAPD(V(:,k),dt_results,0.5);
-        Diastolic{i} = calculateDiastolic(Cai(:,k),dt_results);
-        Systolic{i} = calculateSystolic(Cai(:,k),dt_results);
+        Diastolic{k} = calculateDiastolic(Cai(:,k),dt_results);
+        Systolic{k} = calculateSystolic(Cai(:,k),dt_results);
     end
     CV_v = 1000./(APD_time{5}-APD_time{1});
     sim_stat.(['SS' num2str(CL)]).variations.APD90_v{i,j} = APD90;
