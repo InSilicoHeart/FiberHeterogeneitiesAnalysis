@@ -1,13 +1,13 @@
 addpath([pwd() '/../src'])
 
 pathToSave = '~/FiberSensitivityResults/ORd';
-mainElvira = '~/Software/Elvira/ElviraFiberSensitivity20150728/bin/mainelv_openmpi_gcc';
+mainElvira = '~/Software/Elvira/ElviraFiberSensitivity20150728/bin/mainelv_infiniband_gcc';
 project = 'Conductance Sensitivity - ORd Model';
 
 param = [1:13];
 values =[0.70 0.85 1.15 1.30];
 cellType = 22;
-cores=2;
+cores=4;
 dt = 0.002;
 step_save=50;
 %[s]=rmdir(Model,'s');

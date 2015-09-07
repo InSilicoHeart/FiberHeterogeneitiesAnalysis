@@ -28,5 +28,6 @@ Param_str = cell(length(param));
 [conduction, IThreshold, Istim] = calculateIThreshold(pathToSave, Imax, Istep, dt,project)
 
 simulateSteadyState(pathToSave,param,values,length(nodes),CL,nCLs,Cai_ind,dt,project);
+simulateSteadyStateCVFixed(pathToSave,param,values,length(nodes),CL,nCLs,Cai_ind,sigma_L,Cm,dt,project);
 
 matlabpool close;
