@@ -1,22 +1,22 @@
 addpath([pwd() '/../src'])
 
-pathToSave = '~/FiberSensitivityResults/GPB';
+pathToSave = '~/FiberSensitivityResults/TP06_2ms';
 mainElvira = '~/Software/Elvira/ElviraFiberSensitivity20150728/bin/mainelv_infiniband_gcc';
-project = 'Conductance Sensitivity - GPB Model';
+project = 'Conductance Sensitivity - TP06 Model';
 
-param = [1:14];
+param = [1:13];
 values =[0.70 0.85 1.15 1.30];
-cellType = 13;
-cores=2;
-dt = 0.002;
-step_save=50;
+cellType = 3;
+cores=4;
+dt = 0.02;
+step_save=5;
 %[s]=rmdir(Model,'s');
 Imax = 500;
 Istep = 1;
-Idur = 1;
+Idur = 2;
 Cai_ind = 1;
 
-sigma_L = 0.00093792;
+sigma_L = 0.0012102;
 Cm = 1;
 L = 3;
 dx = 0.01;

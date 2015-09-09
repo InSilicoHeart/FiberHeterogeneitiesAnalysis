@@ -13,6 +13,7 @@ step_save=5;
 %[s]=rmdir(Model,'s');
 Imax = 500;
 Istep = 1;
+Idur = 1;
 Cai_ind = 1;
 
 sigma_L = 0.0012102;
@@ -32,7 +33,7 @@ CL = 1000;
 nCLs = 100;
 
 SensitivityAnalysis(cores, pathToSave, mainElvira, project, cellType, param, values, dt,...
-             step_save, Imax, Istep, CL, nCLs, Cai_ind, sigma_L, Cm, nodes,nodeOut)
+             step_save, Imax, Istep, Idur, CL, nCLs, Cai_ind, sigma_L, Cm, nodes,nodeOut)
 
 plotIThresholdLimits(pathToSave)
 
