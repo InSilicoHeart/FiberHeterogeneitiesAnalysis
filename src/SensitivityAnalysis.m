@@ -1,5 +1,5 @@
 function SensitivityAnalysis(cores, pathToSave, mainElvira, project, cellType, param, values, dt, step_save,...
-                       Imax, Istep, CL, nCLs, Cai_ind, sigma_L, Cm, nodes, nodeOut)
+                       Imax, Istep, Idur, CL, nCLs, Cai_ind, sigma_L, Cm, nodes, nodeOut)
 
 matlabpool(cores)
 
@@ -25,9 +25,9 @@ end
 
 Param_str = cell(length(param));
 
-[conduction, IThreshold, Istim] = calculateIThreshold(pathToSave, Imax, Istep, dt,project)
+[conduction, IThreshold, Istim] = calculateIThreshold(pathToSave, Imax, Istep, Idur, dt,project)
 
-simulateSteadyState(pathToSave,param,values,length(nodes),CL,nCLs,Cai_ind,dt,project);
-simulateSteadyStateCVFixed(pathToSave,param,values,length(nodes),CL,nCLs,Cai_ind,sigma_L,Cm,dt,project);
+simulateSteadyState(pathToSave,param,values,length(nodes),CL,nCLs,Cai_ind,Idur,dt,project);
+%simulateSteadyStateCVFixed(pathToSave,param,values,length(nodes),CL,nCLs,Cai_ind,sigma_L,Cm,dt,project);
 
 matlabpool close;

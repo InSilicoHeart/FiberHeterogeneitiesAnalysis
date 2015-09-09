@@ -1,4 +1,4 @@
-function [conduction,IThreshold,IStim] = calculateIThreshold(pathToSave, Imax, IStep, dt,project)
+function [conduction,IThreshold,IStim] = calculateIThreshold(pathToSave, Imax, IStep, Idur, dt,project)
 
 initialPath=pwd();
 conduction =false;
@@ -46,7 +46,7 @@ if(~isfield(sim_stat,'maxIStim'))
         rmdir([pathToSave '/' Istim_str],'s')
     end
     copyfile([pathToSave '/base'],[pathToSave '/' Istim_str])
-    createFileStimulus([pathToSave '/' Istim_str],[0:1000:4000],1,Imax);
+    createFileStimulus([pathToSave '/' Istim_str],[0:1000:4000],Idur,Imax);
     createMainFile([pathToSave '/' Istim_str],'main_file_IThreshold', project, ...
                  ['Calculation of umbral threshold with Istim = ' num2str(Imax) 'pA/pF'] ,...
                  5000,dt,[],[],0,0,false)
@@ -93,7 +93,7 @@ while(sim_stat.maxIStim-sim_stat.minIStim-sim_stat.IStep>1e-3)
         rmdir([pathToSave '/' Istim_str],'s')
     end
     copyfile([pathToSave '/base'],[pathToSave '/' Istim_str])
-    createFileStimulus([pathToSave '/' Istim_str],[0:1000:4000],1,Istim);
+    createFileStimulus([pathToSave '/' Istim_str],[0:1000:4000],Idur,Istim);
     createMainFile([pathToSave '/' Istim_str],'main_file_IThreshold', project, ...
                  ['Calculation of umbral threshold with Istim = ' num2str(Istim) 'pA/pF'] ,...
                  5000,dt,[],[],0,0,false)
