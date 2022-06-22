@@ -1,7 +1,8 @@
-function SensitivityAnalysis(cores, pathToSave, mainElvira, project, cellType, param, values, dt, step_save,...
-                       Imax, Istep, Idur, CL, nCLs, Cai_ind, sigma_L, Cm, nodes, nodeOut)
+function SensitivityAnalysis(cores, pathToSave, mainElvira, project, cellType, ...
+    params, range, numSim, dt, step_save,Imax, Istep, Idur, CL, nCLs, ...
+    Cai_ind, sigma_L, Cm, nodes, nodeOut)
 
-matlabpool(cores)
+parpool(cores)
 
 [SUCCESS,MESSAGE] = mkdir(pathToSave);
 
@@ -23,11 +24,10 @@ if(isempty(dir([pathToSave '/base'])))
     createFileNodeOutput([pathToSave '/base'], step_save, nodeOut,false);
 end
 
-Param_str = cell(length(param));
+Param_str = cell(length(params));
 
 [conduction, IThreshold, Istim] = calculateIThreshold(pathToSave, Imax, Istep, Idur, dt,project)
 
-simulateSteadyState(pathToSave,param,values,length(nodes),CL,nCLs,Cai_ind,Idur,dt,project);
-%simulateSteadyStateCVFixed(pathToSave,param,values,length(nodes),CL,nCLs,Cai_ind,sigma_L,Cm,dt,project);
+simulateSteadyState(pathToSave,params,range,numSim,length(nodes),CL,nCLs,Cai_ind,Idur,dt,project);
 
-matlabpool close;
+parpool close;

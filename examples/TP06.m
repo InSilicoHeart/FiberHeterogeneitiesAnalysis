@@ -1,13 +1,14 @@
 addpath([pwd() '/../src'])
 
-pathToSave = '~/FiberSensitivityResults/TP06';
+pathToSave = '~/FiberHeterogeneitiesResults/TP06';
 mainElvira = '~/Software/Elvira/ElviraFiberSensitivity20150728/bin/mainelv_infiniband_gcc';
-project = 'Conductance Sensitivity - TP06 Model';
+project = 'Heterogeneities Analysis - TP06 Model';
 
-param = [1:13];
-values =[0.70 0.85 1.15 1.30];
+params = 10:13;
+range =ones(2,1) * [0.70 1.30];
+numSim = 10;
 cellType = 3;
-cores=4;
+cores=2;
 dt = 0.02;
 step_save=5;
 %[s]=rmdir(Model,'s');
@@ -32,7 +33,8 @@ nodeOut = round(positions/dx)+1;
 CL = 1000;
 nCLs = 100;
 
-SensitivityAnalysis(cores, pathToSave, mainElvira, project, cellType, param, values, dt,...
+
+SensitivityAnalysis(cores, pathToSave, mainElvira, project, cellType, params, range, numSim, dt,...
              step_save, Imax, Istep, Idur, CL, nCLs, Cai_ind, sigma_L, Cm, nodes,nodeOut)
 
 plotIThresholdLimits(pathToSave)
