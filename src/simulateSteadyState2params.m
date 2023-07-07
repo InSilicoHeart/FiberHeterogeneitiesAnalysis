@@ -1,4 +1,4 @@
-function simulateSteadyState(pathToSave, params, type, sigma, numSim, nNodes, CL, nCLs, ...
+function simulateSteadyState2params2params(pathToSave, params, type, sigma, numSim, nNodes, CL, nCLs, ...
     Cai_ind, Idur, dt,project)
 
 initialPath=pwd();
@@ -12,8 +12,8 @@ end
 
 pathSS  = [pathToSave '/SS' num2str(CL)];
 
-for i=1:length(params)
-    pathParam = [pathSS '/P_' num2str(params(i))];
+for i=1:length(params(1,:))
+    pathParam = [pathSS '/P_' num2str(params(1,i)) '-P_' num2str(params(2,i))]
 
     if(isempty(dir(pathParam)))
         mkdir(pathParam)
@@ -31,7 +31,7 @@ for i=1:length(params)
      	     createMainFile(pathSim, 'main_file_SS_last', project, ...
                      ['Calculation of last Steady State Cycle for CL=' num2str(CL) 'ms sim ' num2str(j)] ,...
                      CL,dt,['SS_restart_' num2str(round(CL*(nCLs-1)/dt)) '_prc_'],[],0,true,true)
-     	     createFileParamNode(pathSim,params(i),type,sigma,nNodes);
+     	     createFileParamNode(pathSim,unique(params(:,i))',type,sigma,nNodes);
      	     cd(pathSim);
      	     ! ./runelv 1 data/main_file_SS_initial.dat post/SS_initial_
      	     ! ./runelv 1 data/main_file_SS_last.dat post/SS_
@@ -40,9 +40,9 @@ for i=1:length(params)
     end
 end
 
-for i=1:length(params)
-    pathParam = [pathSS '/P_' num2str(params(i))];
-    
+for i=1:length(params(1,:))
+    pathParam = [pathSS '/P_' num2str(params(1,i)) '-P_' num2str(params(2,i))];
+
     for j=1:numSim
         pathSim = [pathParam '/Sim_' sprintf('%03d',j)]
     	a=load([pathSim '/post/SS_prc0_00000151.var']);

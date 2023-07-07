@@ -1,4 +1,4 @@
-function SensitivityAnalysis(cores, pathToSave, mainElvira, project, cellType, ...
+function SensitivityAnalysis2params(cores, pathToSave, mainElvira, project, cellType, ...
     params, type, sigma, numSim, dt, step_save,Imax, Istep, Idur, CL, nCLs, ...
     Cai_ind, sigma_L, Cm, nodes, nodeOut)
 
@@ -24,10 +24,16 @@ if(isempty(dir([pathToSave '/base'])))
     createFileNodeOutput([pathToSave '/base'], step_save, nodeOut,false);
 end
 
-Param_str = cell(length(params));
 
 [conduction, IThreshold, Istim] = calculateIThreshold(pathToSave, Imax, Istep, Idur, dt,project)
 
-simulateSteadyState(pathToSave,params,type,sigma,numSim,length(nodes),CL,nCLs,Cai_ind,Idur,dt,project);
+params_long = [];
+for i=1:length(params)
+	for j=(i+1):length(params)
+		params_long=[params_long params([i,j])'];
+	end
+end
+
+simulateSteadyState2params(pathToSave,params_long,type,sigma,numSim,length(nodes),CL,nCLs,Cai_ind,Idur,dt,project);
 
 delete(gcp('nocreate'))
